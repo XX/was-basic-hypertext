@@ -1,9 +1,6 @@
-use std::ops::Deref;
-
 use derive_more::{AsMut, AsRef};
 use hypertext::prelude::GlobalAttributes;
-use hypertext::{Buffer, Lazy, Renderable, component, rsx};
-use itertools::Itertools;
+use hypertext::{Buffer, Lazy, Renderable, rsx};
 
 use crate::appearance::{Appearance, AppearanceSetters};
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
@@ -25,14 +22,6 @@ impl BadgeParams {
 
     pub fn new() -> Self {
         Self::default()
-    }
-
-    pub fn class_line(&self) -> String {
-        [Self::CLASS, self.variant.into_str(), self.appearance.into_str()]
-            .into_iter()
-            .chain(self.additional.get_classes().iter().map(Deref::deref))
-            .filter(|class| !class.is_empty())
-            .join(" ")
     }
 }
 
@@ -60,25 +49,27 @@ impl From<Appearance> for BadgeParams {
     }
 }
 
-#[component]
-pub fn badge(params: &BadgeParams, children: Lazy<fn(&mut Buffer)>) -> impl Renderable {
-    let id = params.additional.get_not_empty_id();
-    let class_line = params.class_line();
-    let style_line = params.additional.get_style_line();
-
-    rsx! {
-        <div id=[id] class=class_line style=[style_line.as_ref()]>
-            (children)
-        </div>
-    }
+#[derive(Default)]
+pub struct Badge {
+    pub params: BadgeParams,
+    pub children: Lazy<fn(&mut Buffer)>,
 }
 
-#[allow(clippy::derivable_impls)]
-impl Default for Badge {
-    fn default() -> Self {
-        Self {
-            params: Default::default(),
-            children: Default::default(),
+impl Renderable for Badge {
+    fn render_to(&self, buffer: &mut Buffer) {
+        let id = self.params.id();
+        let class_line = self.params.class_line_with([
+            BadgeParams::CLASS,
+            self.params.variant.into_str(),
+            self.params.appearance.into_str(),
+        ]);
+        let style_line = self.params.style_line_with([]);
+
+        rsx! {
+            <div id=[id] class=[&class_line] style=[&style_line]>
+                (self.children)
+            </div>
         }
+        .render_to(buffer);
     }
 }

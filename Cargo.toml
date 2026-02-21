@@ -4,5 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+derive_more = { version = "2.1", features = ["as_ref"] }
 hypertext = { git = "https://github.com/vidhanio/hypertext.git", version = "0.12", features = ["axum", "htmx"] }
 strum = { version = "0.27", features = ["derive"] }
+itertools = "0.14"

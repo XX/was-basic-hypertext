@@ -1,3 +1,5 @@
+pub mod appearance;
+pub mod attributes;
 pub mod components;
 #[cfg(test)]
 pub mod tests;

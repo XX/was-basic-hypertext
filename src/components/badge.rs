@@ -15,11 +15,12 @@ pub fn badge(variant: Variant, children: Lazy<fn(&mut Buffer)>) -> impl Renderab
     }
 }
 
+#[allow(clippy::derivable_impls)]
 impl Default for Badge {
     fn default() -> Self {
         Self {
-            variant: Variant::default(),
-            children: Lazy::default(),
+            variant: Default::default(),
+            children: Default::default(),
         }
     }
 }

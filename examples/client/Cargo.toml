@@ -1,0 +1,12 @@
+[package]
+name = "example-client"
+version = "0.1.0"
+edition.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+hypertext = { workspace = true }
+was-basic-hypertext = { workspace = true }
+wasm-bindgen = { workspace = true }

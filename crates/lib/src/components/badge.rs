@@ -2,10 +2,10 @@ use derive_more::{AsMut, AsRef};
 use hypertext::prelude::GlobalAttributes;
 use hypertext::{Buffer, Lazy, Renderable, rsx};
 
-use crate::macros::Params;
 use crate::appearance::Appearance;
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
 use crate::hypertext_elements;
+use crate::macros::Params;
 use crate::variant::Variant;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, AsRef, AsMut, Params)]

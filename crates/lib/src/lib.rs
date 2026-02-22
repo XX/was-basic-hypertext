@@ -1,4 +1,4 @@
-pub use was_basic_hypertext_macros as macros;
+pub use {hypertext, was_basic_hypertext_macros as macros};
 
 pub mod appearance;
 pub mod attributes;
@@ -7,7 +7,7 @@ pub mod components;
 pub mod tests;
 pub mod variant;
 
-mod hypertext_elements {
+pub mod hypertext_elements {
     // Re-export all standard HTML elements
     pub use hypertext::validation::hypertext_elements::*;
 }

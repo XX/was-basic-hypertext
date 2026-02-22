@@ -1,3 +1,5 @@
+pub use was_basic_hypertext_macros as macros;
+
 pub mod appearance;
 pub mod attributes;
 pub mod components;

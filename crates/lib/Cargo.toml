@@ -1,0 +1,11 @@
+[package]
+name = "was-basic-hypertext"
+version = "0.1.0"
+edition.workspace = true
+
+[dependencies]
+derive_more = { workspace = true }
+hypertext = { workspace = true }
+itertools = { workspace = true }
+strum = { workspace = true }
+was-basic-hypertext-macros = { workspace = true }

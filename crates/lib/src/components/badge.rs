@@ -2,14 +2,18 @@ use derive_more::{AsMut, AsRef};
 use hypertext::prelude::GlobalAttributes;
 use hypertext::{Buffer, Lazy, Renderable, rsx};
 
-use crate::appearance::{Appearance, AppearanceSetters};
+use crate::macros::Params;
+use crate::appearance::Appearance;
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
 use crate::hypertext_elements;
-use crate::variant::{Variant, VariantSetters};
+use crate::variant::Variant;
 
-#[derive(Clone, Debug, Default, PartialEq, Eq, AsRef, AsMut)]
+#[derive(Clone, Debug, Default, PartialEq, Eq, AsRef, AsMut, Params)]
 pub struct BadgeParams {
+    #[param(setters, from)]
     pub variant: Variant,
+
+    #[param(setters, from)]
     pub appearance: Appearance,
 
     #[as_ref]
@@ -22,30 +26,6 @@ impl BadgeParams {
 
     pub fn new() -> Self {
         Self::default()
-    }
-}
-
-impl VariantSetters for BadgeParams {
-    fn set_variant(&mut self, variant: Variant) {
-        self.variant = variant;
-    }
-}
-
-impl AppearanceSetters for BadgeParams {
-    fn set_appearance(&mut self, appearance: Appearance) {
-        self.appearance = appearance;
-    }
-}
-
-impl From<Variant> for BadgeParams {
-    fn from(variant: Variant) -> Self {
-        Self::default().variant(variant)
-    }
-}
-
-impl From<Appearance> for BadgeParams {
-    fn from(appearance: Appearance) -> Self {
-        Self::default().appearance(appearance)
     }
 }
 

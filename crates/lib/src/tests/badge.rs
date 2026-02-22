@@ -3,7 +3,7 @@ use hypertext::{Renderable, rsx};
 use crate::appearance::AppearanceConstructor;
 use crate::attributes::CommonAttributeSetters;
 use crate::components::badge::{Badge, BadgeParams};
-use crate::variant::{Variant, VariantConstructor, VariantSetters};
+use crate::variant::{Variant, VariantConstructor};
 
 #[test]
 fn default() {

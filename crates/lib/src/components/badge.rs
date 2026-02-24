@@ -8,8 +8,9 @@ use crate::attributes::{CommonAttributeGetters, CommonAttrs};
 use crate::hypertext_elements;
 use crate::variant::Variant;
 
-#[derive(Clone, Debug, Default, PartialEq, Eq, AsRef, AsMut, Params)]
-pub struct BadgeParams {
+#[derive(Default, AsRef, AsMut, Params)]
+#[const_str(CLASS = "badge")]
+pub struct Badge {
     #[param(setters, from)]
     pub variant: Variant,
 
@@ -18,31 +19,17 @@ pub struct BadgeParams {
 
     #[as_ref]
     #[as_mut]
-    pub additional: CommonAttrs,
-}
+    pub attrs: CommonAttrs,
 
-impl BadgeParams {
-    pub fn new() -> Self {
-        Self::default()
-    }
-}
-
-#[derive(Default)]
-#[const_str(CLASS = "badge")]
-pub struct Badge {
-    pub params: BadgeParams,
+    #[param(setters)]
     pub children: Lazy<fn(&mut Buffer)>,
 }
 
 impl Renderable for Badge {
     fn render_to(&self, buffer: &mut Buffer) {
-        let id = self.params.id();
-        let class_line = self.params.class_line_with([
-            Self::CLASS,
-            self.params.variant.into_str(),
-            self.params.appearance.into_str(),
-        ]);
-        let style_line = self.params.style_line_with([]);
+        let id = self.id();
+        let class_line = self.class_line_with([Self::CLASS, self.variant.into_str(), self.appearance.into_str()]);
+        let style_line = self.style_line_with([]);
 
         rsx! {
             <div id=[id] class=[&class_line] style=[&style_line]>

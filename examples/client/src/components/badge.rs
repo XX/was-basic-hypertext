@@ -1,11 +1,11 @@
 use hypertext::prelude::GlobalAttributes;
 use hypertext::{Renderable, rsx};
-use was_basic_hypertext::components::badge::{Badge, BadgeParams};
+use was_basic_hypertext::components::badge::Badge;
 use was_basic_hypertext::hypertext_elements;
 use was_basic_hypertext::layouts::code_example::{
     CodeExample, CodeExampleButton, CodeExamplePreview, CodeExampleSource,
 };
-use was_basic_hypertext::variant::VariantConstructor;
+use was_basic_hypertext::variant::Variant;
 
 pub fn overview() -> impl Renderable {
     rsx! {
@@ -27,20 +27,20 @@ pub fn overview() -> impl Renderable {
         <CodeExample ..>
             <CodeExamplePreview resize=true ..>
                 <div class="wa-cluster wa-gap-2xs">
-                    <Badge params=(BadgeParams::neutral())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::brand())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::success())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::warning())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::danger())>"Badge"</Badge>
+                    <Badge variant=(Variant::Neutral) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Brand) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Success) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Warning) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Danger) ..>"Badge"</Badge>
                 </div>
             </CodeExamplePreview>
             <CodeExampleSource ..>
                 <code class="language-html">r#"
-                    <Badge params=(BadgeParams::neutral())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::brand())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::success())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::warning())>"Badge"</Badge>
-                    <Badge params=(BadgeParams::danger())>"Badge"</Badge>
+                    <Badge variant=(Variant::Neutral) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Brand) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Success) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Warning) ..>"Badge"</Badge>
+                    <Badge variant=(Variant::Danger) ..>"Badge"</Badge>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton ..>"Code"</CodeExampleButton>

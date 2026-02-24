@@ -163,5 +163,29 @@ pub fn overview() -> impl Renderable {
             </CodeExampleSource>
             <CodeExampleButton ..>"Code"</CodeExampleButton>
         </CodeExample>
+
+        <h3>"Pill Badges"</h3>
+        <p>"Use the "<code>"pill"</code>" property to give badges rounded edges."</p>
+        <CodeExample ..>
+            <CodeExamplePreview resize=true ..>
+                <div class="wa-cluster wa-gap-2xs">
+                    <Badge variant=Neutral pill=true ..>"Neutral"</Badge>
+                    <Badge variant=Brand pill=true ..>"Brand"</Badge>
+                    <Badge variant=Success pill=true ..>"Success"</Badge>
+                    <Badge variant=Warning pill=true ..>"Warning"</Badge>
+                    <Badge variant=Danger pill=true ..>"Danger"</Badge>
+                </div>
+            </CodeExamplePreview>
+            <CodeExampleSource ..>
+                <code class="language-html">r#"
+                    <Badge variant=Neutral pill=true ..>"Neutral"</Badge>
+                    <Badge variant=Brand pill=true ..>"Brand"</Badge>
+                    <Badge variant=Success pill=true ..>"Success"</Badge>
+                    <Badge variant=Warning pill=true ..>"Warning"</Badge>
+                    <Badge variant=Danger pill=true ..>"Danger"</Badge>
+                "#</code>
+            </CodeExampleSource>
+            <CodeExampleButton ..>"Code"</CodeExampleButton>
+        </CodeExample>
     }
 }

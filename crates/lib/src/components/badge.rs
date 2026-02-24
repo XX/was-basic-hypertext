@@ -17,6 +17,9 @@ pub struct Badge {
     #[prop(setters, from)]
     pub appearance: Appearance,
 
+    #[prop(setters, from)]
+    pub pill: bool,
+
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
@@ -28,7 +31,12 @@ pub struct Badge {
 impl Renderable for Badge {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.id();
-        let class_line = self.class_line_with([Self::CLASS, self.variant.into_str(), self.appearance.into_str()]);
+        let class_line = self.class_line_with([
+            Self::CLASS,
+            if self.pill { "pill" } else { "" },
+            self.variant.into_str(),
+            self.appearance.into_str(),
+        ]);
         let style_line = self.style_line_with([]);
 
         rsx! {

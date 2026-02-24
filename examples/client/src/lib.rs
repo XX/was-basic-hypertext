@@ -1,7 +1,8 @@
 use hypertext::{Renderable, rsx};
-use was_basic_hypertext::components::badge::Badge;
 use was_basic_hypertext::hypertext_elements;
 use wasm_bindgen::prelude::*;
+
+pub mod components;
 
 #[wasm_bindgen]
 extern "C" {
@@ -12,7 +13,7 @@ extern "C" {
 pub fn render_root() -> String {
     rsx! {
         <div>
-            <Badge ..>"Hello, world!"</Badge>
+            (components::badge::overview())
         </div>
     }
     .render()

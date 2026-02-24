@@ -1,11 +1,11 @@
 use derive_more::{AsMut, AsRef};
 use hypertext::prelude::GlobalAttributes;
 use hypertext::{Buffer, Lazy, Renderable, rsx};
+use was_basic_hypertext_macros::{Params, const_str};
 
 use crate::appearance::Appearance;
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
 use crate::hypertext_elements;
-use crate::macros::Params;
 use crate::variant::Variant;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, AsRef, AsMut, Params)]
@@ -22,14 +22,13 @@ pub struct BadgeParams {
 }
 
 impl BadgeParams {
-    pub const CLASS: &str = "badge";
-
     pub fn new() -> Self {
         Self::default()
     }
 }
 
 #[derive(Default)]
+#[const_str(CLASS = "badge")]
 pub struct Badge {
     pub params: BadgeParams,
     pub children: Lazy<fn(&mut Buffer)>,
@@ -39,7 +38,7 @@ impl Renderable for Badge {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.params.id();
         let class_line = self.params.class_line_with([
-            BadgeParams::CLASS,
+            Self::CLASS,
             self.params.variant.into_str(),
             self.params.appearance.into_str(),
         ]);

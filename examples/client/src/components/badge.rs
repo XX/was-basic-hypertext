@@ -1,6 +1,7 @@
 use hypertext::prelude::GlobalAttributes;
 use hypertext::{Renderable, rsx};
 use was_basic_hypertext::appearance::Appearance::*;
+use was_basic_hypertext::attributes::{CommonAttributeSetters, CommonAttrs};
 use was_basic_hypertext::components::badge::Badge;
 use was_basic_hypertext::hypertext_elements;
 use was_basic_hypertext::layouts::code_example::{
@@ -28,20 +29,20 @@ pub fn overview() -> impl Renderable {
         <CodeExample ..>
             <CodeExamplePreview resize=true ..>
                 <div class="wa-cluster wa-gap-2xs">
-                    <Badge variant=Neutral ..>"Badge"</Badge>
-                    <Badge variant=Brand ..>"Badge"</Badge>
-                    <Badge variant=Success ..>"Badge"</Badge>
-                    <Badge variant=Warning ..>"Badge"</Badge>
-                    <Badge variant=Danger ..>"Badge"</Badge>
+                    <Badge variant=Neutral ..>"Neutral"</Badge>
+                    <Badge variant=Brand ..>"Brand"</Badge>
+                    <Badge variant=Success ..>"Success"</Badge>
+                    <Badge variant=Warning ..>"Warning"</Badge>
+                    <Badge variant=Danger ..>"Danger"</Badge>
                 </div>
             </CodeExamplePreview>
             <CodeExampleSource ..>
                 <code class="language-html">r#"
-                    <Badge variant=Neutral ..>"Badge"</Badge>
-                    <Badge variant=Brand ..>"Badge"</Badge>
-                    <Badge variant=Success ..>"Badge"</Badge>
-                    <Badge variant=Warning ..>"Badge"</Badge>
-                    <Badge variant=Danger ..>"Badge"</Badge>
+                    <Badge variant=Neutral ..>"Neutral"</Badge>
+                    <Badge variant=Brand ..>"Brand"</Badge>
+                    <Badge variant=Success ..>"Success"</Badge>
+                    <Badge variant=Warning ..>"Warning"</Badge>
+                    <Badge variant=Danger ..>"Danger"</Badge>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton ..>"Code"</CodeExampleButton>
@@ -52,68 +53,112 @@ pub fn overview() -> impl Renderable {
         <CodeExample ..>
             <CodeExamplePreview resize=true ..>
                 <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                    <Badge appearance=Accent variant=Neutral ..>"Accent"</Badge>
-                    <Badge appearance=FilledOutlined variant=Neutral ..>"Filled-Outlined"</Badge>
-                    <Badge appearance=Filled variant=Neutral ..>"Filled"</Badge>
-                    <Badge appearance=Outlined variant=Neutral ..>"Outlined"</Badge>
+                    <Badge variant=Neutral appearance=Accent ..>"Accent"</Badge>
+                    <Badge variant=Neutral appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                    <Badge variant=Neutral appearance=Filled ..>"Filled"</Badge>
+                    <Badge variant=Neutral appearance=Outlined ..>"Outlined"</Badge>
                 </div>
                 <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                    <Badge appearance=Accent variant=Brand ..>"Accent"</Badge>
-                    <Badge appearance=FilledOutlined variant=Brand ..>"Filled-Outlined"</Badge>
-                    <Badge appearance=Filled variant=Brand ..>"Filled"</Badge>
-                    <Badge appearance=Outlined variant=Brand ..>"Outlined"</Badge>
+                    <Badge variant=Brand appearance=Accent ..>"Accent"</Badge>
+                    <Badge variant=Brand appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                    <Badge variant=Brand appearance=Filled ..>"Filled"</Badge>
+                    <Badge variant=Brand appearance=Outlined ..>"Outlined"</Badge>
                 </div>
                 <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                    <Badge appearance=Accent variant=Success ..>"Accent"</Badge>
-                    <Badge appearance=FilledOutlined variant=Success ..>"Filled-Outlined"</Badge>
-                    <Badge appearance=Filled variant=Success ..>"Filled"</Badge>
-                    <Badge appearance=Outlined variant=Success ..>"Outlined"</Badge>
+                    <Badge variant=Success appearance=Accent ..>"Accent"</Badge>
+                    <Badge variant=Success appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                    <Badge variant=Success appearance=Filled ..>"Filled"</Badge>
+                    <Badge variant=Success appearance=Outlined ..>"Outlined"</Badge>
                 </div>
                 <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                    <Badge appearance=Accent variant=Warning ..>"Accent"</Badge>
-                    <Badge appearance=FilledOutlined variant=Warning ..>"Filled-Outlined"</Badge>
-                    <Badge appearance=Filled variant=Warning ..>"Filled"</Badge>
-                    <Badge appearance=Outlined variant=Warning ..>"Outlined"</Badge>
+                    <Badge variant=Warning appearance=Accent ..>"Accent"</Badge>
+                    <Badge variant=Warning appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                    <Badge variant=Warning appearance=Filled ..>"Filled"</Badge>
+                    <Badge variant=Warning appearance=Outlined ..>"Outlined"</Badge>
                 </div>
-                <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                    <Badge appearance=Accent variant=Danger ..>"Accent"</Badge>
-                    <Badge appearance=FilledOutlined variant=Danger ..>"Filled-Outlined"</Badge>
-                    <Badge appearance=Filled variant=Danger ..>"Filled"</Badge>
-                    <Badge appearance=Outlined variant=Danger ..>"Outlined"</Badge>
+                <div class="wa-cluster wa-gap-2xs">
+                    <Badge variant=Danger appearance=Accent ..>"Accent"</Badge>
+                    <Badge variant=Danger appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                    <Badge variant=Danger appearance=Filled ..>"Filled"</Badge>
+                    <Badge variant=Danger appearance=Outlined ..>"Outlined"</Badge>
                 </div>
             </CodeExamplePreview>
             <CodeExampleSource ..>
                 <code class="language-html">r#"
                     <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                        <Badge appearance=Accent variant=Neutral ..>"Accent"</Badge>
-                        <Badge appearance=FilledOutlined variant=Neutral ..>"Filled-Outlined"</Badge>
-                        <Badge appearance=Filled variant=Neutral ..>"Filled"</Badge>
-                        <Badge appearance=Outlined variant=Neutral ..>"Outlined"</Badge>
+                        <Badge variant=Neutral appearance=Accent ..>"Accent"</Badge>
+                        <Badge variant=Neutral appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                        <Badge variant=Neutral appearance=Filled ..>"Filled"</Badge>
+                        <Badge variant=Neutral appearance=Outlined ..>"Outlined"</Badge>
                     </div>
                     <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                        <Badge appearance=Accent variant=Brand ..>"Accent"</Badge>
-                        <Badge appearance=FilledOutlined variant=Brand ..>"Filled-Outlined"</Badge>
-                        <Badge appearance=Filled variant=Brand ..>"Filled"</Badge>
-                        <Badge appearance=Outlined variant=Brand ..>"Outlined"</Badge>
+                        <Badge variant=Brand appearance=Accent ..>"Accent"</Badge>
+                        <Badge variant=Brand appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                        <Badge variant=Brand appearance=Filled ..>"Filled"</Badge>
+                        <Badge variant=Brand appearance=Outlined ..>"Outlined"</Badge>
                     </div>
                     <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                        <Badge appearance=Accent variant=Success ..>"Accent"</Badge>
-                        <Badge appearance=FilledOutlined variant=Success ..>"Filled-Outlined"</Badge>
-                        <Badge appearance=Filled variant=Success ..>"Filled"</Badge>
-                        <Badge appearance=Outlined variant=Success ..>"Outlined"</Badge>
+                        <Badge variant=Success appearance=Accent ..>"Accent"</Badge>
+                        <Badge variant=Success appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                        <Badge variant=Success appearance=Filled ..>"Filled"</Badge>
+                        <Badge variant=Success appearance=Outlined ..>"Outlined"</Badge>
                     </div>
                     <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                        <Badge appearance=Accent variant=Warning ..>"Accent"</Badge>
-                        <Badge appearance=FilledOutlined variant=Warning ..>"Filled-Outlined"</Badge>
-                        <Badge appearance=Filled variant=Warning ..>"Filled"</Badge>
-                        <Badge appearance=Outlined variant=Warning ..>"Outlined"</Badge>
+                        <Badge variant=Warning appearance=Accent ..>"Accent"</Badge>
+                        <Badge variant=Warning appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                        <Badge variant=Warning appearance=Filled ..>"Filled"</Badge>
+                        <Badge variant=Warning appearance=Outlined ..>"Outlined"</Badge>
                     </div>
-                    <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
-                        <Badge appearance=Accent variant=Danger ..>"Accent"</Badge>
-                        <Badge appearance=FilledOutlined variant=Danger ..>"Filled-Outlined"</Badge>
-                        <Badge appearance=Filled variant=Danger ..>"Filled"</Badge>
-                        <Badge appearance=Outlined variant=Danger ..>"Outlined"</Badge>
+                    <div class="wa-cluster wa-gap-2xs">
+                        <Badge variant=Danger appearance=Accent ..>"Accent"</Badge>
+                        <Badge variant=Danger appearance=FilledOutlined ..>"Filled-Outlined"</Badge>
+                        <Badge variant=Danger appearance=Filled ..>"Filled"</Badge>
+                        <Badge variant=Danger appearance=Outlined ..>"Outlined"</Badge>
                     </div>
+                "#</code>
+            </CodeExampleSource>
+            <CodeExampleButton ..>"Code"</CodeExampleButton>
+        </CodeExample>
+
+        <h3>"Size"</h3>
+        <p>"Badges are sized relative to the current font size. You can set "<code>"font-size"</code>" on any badge (or an ancestor element) to change it."</p>
+        <CodeExample ..>
+            <CodeExamplePreview resize=true ..>
+                <div class="wa-cluster wa-gap-2xs">
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-xs)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-s)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-m)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-l)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-xl)")
+                    ) ..>"Brand"</Badge>
+                </div>
+            </CodeExamplePreview>
+            <CodeExampleSource ..>
+                <code class="language-html">r#"
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-xs)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-s)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-m)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-l)")
+                    ) ..>"Brand"</Badge>
+                    <Badge variant=Brand attrs=(
+                        CommonAttrs::new().style("font-size: var(--wa-font-size-xl)")
+                    ) ..>"Brand"</Badge>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton ..>"Code"</CodeExampleButton>

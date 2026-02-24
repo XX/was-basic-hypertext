@@ -1,27 +1,27 @@
 use derive_more::{AsMut, AsRef};
 use hypertext::prelude::GlobalAttributes;
 use hypertext::{Buffer, Lazy, Renderable, rsx};
-use was_basic_hypertext_macros::{Params, const_str};
+use was_basic_hypertext_macros::{Props, const_str};
 
 use crate::appearance::Appearance;
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
 use crate::hypertext_elements;
 use crate::variant::Variant;
 
-#[derive(Default, AsRef, AsMut, Params)]
+#[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "badge")]
 pub struct Badge {
-    #[param(setters, from)]
+    #[prop(setters, from)]
     pub variant: Variant,
 
-    #[param(setters, from)]
+    #[prop(setters, from)]
     pub appearance: Appearance,
 
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[param(setters)]
+    #[prop(setters)]
     pub children: Lazy<fn(&mut Buffer)>,
 }
 

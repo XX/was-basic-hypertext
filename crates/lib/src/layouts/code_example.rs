@@ -1,22 +1,22 @@
 use derive_more::{AsMut, AsRef};
 use hypertext::prelude::{EventHandlerAttributes, GlobalAttributes};
 use hypertext::{Buffer, Lazy, Renderable, rsx};
-use was_basic_hypertext_macros::{Params, const_str};
+use was_basic_hypertext_macros::{Props, const_str};
 
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
 use crate::hypertext_elements;
 
-#[derive(Default, AsRef, AsMut, Params)]
+#[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example")]
 pub struct CodeExample {
-    #[param(setters)]
+    #[prop(setters)]
     pub open: bool,
 
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[param(setters)]
+    #[prop(setters)]
     pub children: Lazy<fn(&mut Buffer)>,
 }
 
@@ -36,17 +36,17 @@ impl Renderable for CodeExample {
     }
 }
 
-#[derive(Default, AsRef, AsMut, Params)]
+#[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-preview")]
 pub struct CodeExamplePreview {
-    #[param(setters)]
+    #[prop(setters)]
     pub resize: bool,
 
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[param(setters)]
+    #[prop(setters)]
     pub children: Lazy<fn(&mut Buffer)>,
 }
 
@@ -77,14 +77,14 @@ impl Renderable for CodeExamplePreview {
     }
 }
 
-#[derive(Default, AsRef, AsMut, Params)]
+#[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-source")]
 pub struct CodeExampleSource {
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[param(setters)]
+    #[prop(setters)]
     pub children: Lazy<fn(&mut Buffer)>,
 }
 
@@ -105,14 +105,14 @@ impl Renderable for CodeExampleSource {
     }
 }
 
-#[derive(Default, AsRef, AsMut, Params)]
+#[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-buttons")]
 pub struct CodeExampleButton {
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[param(setters)]
+    #[prop(setters)]
     pub children: Lazy<fn(&mut Buffer)>,
 }
 

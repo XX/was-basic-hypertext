@@ -3,11 +3,11 @@ use quote::{format_ident, quote};
 use syn::spanned::Spanned;
 use syn::{Data, DeriveInput};
 
-pub fn params(input: DeriveInput) -> syn::Result<TokenStream> {
+pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
     let Data::Struct(data_struct) = &input.data else {
         return Err(syn::Error::new(
             input.span(),
-            "#[derive(Params)] may only be used on structs",
+            "#[derive(Props)] may only be used on structs",
         ));
     };
 
@@ -19,13 +19,13 @@ pub fn params(input: DeriveInput) -> syn::Result<TokenStream> {
 
     for field in &data_struct.fields {
         if let Some(name) = field.ident.as_ref()
-            && let Some(param_attr) = field.attrs.iter().find(|attr| attr.path().is_ident("param"))
+            && let Some(prop_attr) = field.attrs.iter().find(|attr| attr.path().is_ident("prop"))
         {
             let ty = &field.ty;
             let mut is_setters_exist = false;
             let mut is_from_exist = false;
 
-            param_attr.parse_nested_meta(|meta| {
+            prop_attr.parse_nested_meta(|meta| {
                 if meta.path.is_ident("setters") {
                     is_setters_exist = true;
                     return Ok(());
@@ -36,7 +36,7 @@ pub fn params(input: DeriveInput) -> syn::Result<TokenStream> {
                     return Ok(());
                 }
 
-                Err(meta.error("unrecognized param"))
+                Err(meta.error("unrecognized prop"))
             })?;
 
             if is_setters_exist {

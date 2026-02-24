@@ -1,9 +1,11 @@
 use hypertext::{Renderable, rsx};
 
-use crate::appearance::{Appearance, AppearanceConstructor};
+use crate::appearance::Appearance::*;
+use crate::appearance::AppearanceConstructor;
 use crate::attributes::{CommonAttributeSetters, CommonAttrs};
 use crate::components::badge::Badge;
-use crate::variant::{Variant, VariantConstructor};
+use crate::variant::Variant::*;
+use crate::variant::VariantConstructor;
 
 #[test]
 fn default() {
@@ -26,13 +28,13 @@ fn variant() {
     let badge = Badge::success();
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = Badge::default().variant(Variant::Success);
+    let badge = Badge::default().variant(Success);
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = rsx! { <Badge variant=(Variant::Success) ../> };
+    let badge = rsx! { <Badge variant=Success ../> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = rsx! { <Badge variant=(Variant::Success) ..></Badge> };
+    let badge = rsx! { <Badge variant=Success ..></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -49,7 +51,7 @@ fn nested() {
     let badge_markup =
         r#"<div class="badge neutral accent"><div class="badge success accent">Hello, world!</div></div>"#;
 
-    let badge = rsx! { <Badge ..><Badge variant=(Variant::Success) ..>"Hello, world!"</Badge></Badge> };
+    let badge = rsx! { <Badge ..><Badge variant=Success ..>"Hello, world!"</Badge></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -73,7 +75,7 @@ fn additional_attributes() {
         r#"<div id="bad" class="badge danger filled-outlined test" style="color: red; background-color: green"></div>"#;
 
     let badge = Badge::filled_outlined()
-        .variant(Variant::Danger)
+        .variant(Danger)
         .id("bad")
         .class("test")
         .style("color: red")
@@ -82,8 +84,8 @@ fn additional_attributes() {
 
     let badge = rsx! {
         <Badge
-            appearance=(Appearance::FilledOutlined)
-            variant=(Variant::Danger)
+            appearance=FilledOutlined
+            variant=Danger
             attrs=(CommonAttrs::new().id("bad").class("test").style("color: red").style("background-color: green"))
         .. >
         </Badge>

@@ -26,6 +26,7 @@ dependencies = ["choose_profile"]
 script_runner = "@duckscript"
 script = '''
 rm -r ${TARGET_DIR}/web
+glob_cp web/**/* ${TARGET_DIR}/web/
 glob_cp examples/client/web/**/* ${TARGET_DIR}/web/
 '''
 

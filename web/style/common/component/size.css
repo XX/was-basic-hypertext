@@ -1,0 +1,14 @@
+.size-small,
+.wa-size-s {
+  font-size: var(--wa-font-size-s);
+}
+
+.size-medium,
+.wa-size-m {
+  font-size: var(--wa-font-size-m);
+}
+
+.size-large,
+.wa-size-l {
+  font-size: var(--wa-font-size-l);
+}

@@ -1,8 +1,8 @@
-use hypertext::{Renderable, rsx};
+use hypertext::{RenderableExt, rsx};
 
 use crate::appearance::Appearance::*;
 use crate::appearance::AppearanceConstructor;
-use crate::attributes::{CommonAttributeSetters, CommonAttrs};
+use crate::attributes::CommonAttributeSetters;
 use crate::components::badge::Badge;
 use crate::variant::Variant::*;
 use crate::variant::VariantConstructor;
@@ -14,10 +14,10 @@ fn default() {
     let badge = Badge::default();
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = rsx! { <Badge ../> };
+    let badge = rsx! { <Badge/> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = rsx! { <Badge ..></Badge> };
+    let badge = rsx! { <Badge></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -31,10 +31,10 @@ fn variant() {
     let badge = Badge::default().variant(Success);
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = rsx! { <Badge variant=Success ../> };
+    let badge = rsx! { <Badge variant=Success/> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = rsx! { <Badge variant=Success ..></Badge> };
+    let badge = rsx! { <Badge variant=Success></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -42,7 +42,7 @@ fn variant() {
 fn children() {
     let badge_markup = r#"<div class="badge neutral accent">Hello, world!</div>"#;
 
-    let badge = rsx! { <Badge ..>"Hello, world!"</Badge> };
+    let badge = rsx! { <Badge>"Hello, world!"</Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -51,7 +51,7 @@ fn nested() {
     let badge_markup =
         r#"<div class="badge neutral accent"><div class="badge success accent">Hello, world!</div></div>"#;
 
-    let badge = rsx! { <Badge ..><Badge variant=Success ..>"Hello, world!"</Badge></Badge> };
+    let badge = rsx! { <Badge><Badge variant=Success>"Hello, world!"</Badge></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -67,7 +67,7 @@ fn additional_attributes() {
     assert_eq!(badge.render().as_inner(), badge_markup);
 
     let badge = rsx! {
-        <Badge attrs=(CommonAttrs::new().id("the-badge").class("test").class("alarm").style("color: red")) ..></Badge>
+        <Badge id="the-badge" class="test" class="alarm" style="color: red"></Badge>
     };
     assert_eq!(badge.render().as_inner(), badge_markup);
 
@@ -86,8 +86,11 @@ fn additional_attributes() {
         <Badge
             appearance=FilledOutlined
             variant=Danger
-            attrs=(CommonAttrs::new().id("bad").class("test").style("color: red").style("background-color: green"))
-        .. >
+            id="bad"
+            class="test"
+            style="color: red"
+            style="background-color: green"
+        >
         </Badge>
     };
     assert_eq!(badge.render().as_inner(), badge_markup);

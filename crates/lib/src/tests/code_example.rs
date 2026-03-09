@@ -1,7 +1,7 @@
 use hypertext::prelude::GlobalAttributes;
-use hypertext::{Lazy, Renderable, rsx};
+use hypertext::{Lazy, Renderable, RenderableExt, rsx};
 
-use crate::attributes::{CommonAttributeSetters, CommonAttrs};
+use crate::attributes::CommonAttributeSetters;
 use crate::components::badge::Badge;
 use crate::hypertext_elements;
 use crate::layouts::code_example::{CodeExample, CodeExampleButton, CodeExamplePreview, CodeExampleSource};
@@ -13,7 +13,7 @@ fn default() {
     let code_example = CodeExample::default();
     assert_eq!(code_example.render().as_inner(), code_example_markup);
 
-    let code_example = rsx! { <CodeExample ..></CodeExample> };
+    let code_example = rsx! { <CodeExample></CodeExample> };
     assert_eq!(code_example.render().as_inner(), code_example_markup);
 
     let code_example_preview_markup = r#"<div class="code-example-preview"></div>"#;
@@ -21,7 +21,7 @@ fn default() {
     let code_example_preview = CodeExamplePreview::default();
     assert_eq!(code_example_preview.render().as_inner(), code_example_preview_markup);
 
-    let code_example_preview = rsx! { <CodeExamplePreview ..></CodeExamplePreview> };
+    let code_example_preview = rsx! { <CodeExamplePreview></CodeExamplePreview> };
     assert_eq!(code_example_preview.render().as_inner(), code_example_preview_markup);
 
     let code_example_source_markup = r#"<div class="code-example-source"><pre></pre></div>"#;
@@ -29,7 +29,7 @@ fn default() {
     let code_example_source = CodeExampleSource::default();
     assert_eq!(code_example_source.render().as_inner(), code_example_source_markup);
 
-    let code_example_source = rsx! { <CodeExampleSource ..></CodeExampleSource> };
+    let code_example_source = rsx! { <CodeExampleSource></CodeExampleSource> };
     assert_eq!(code_example_source.render().as_inner(), code_example_source_markup);
 
     let code_example_button_markup = r#"
@@ -50,7 +50,7 @@ fn default() {
     let code_example_button = CodeExampleButton::default();
     assert_eq!(code_example_button.render().as_inner(), &code_example_button_markup);
 
-    let code_example_button = rsx! { <CodeExampleButton ..></CodeExampleButton> };
+    let code_example_button = rsx! { <CodeExampleButton></CodeExampleButton> };
     assert_eq!(code_example_button.render().as_inner(), &code_example_button_markup);
 }
 
@@ -83,12 +83,12 @@ fn empty() {
     .collect::<String>();
 
     let code_example = rsx! {
-        <CodeExample ..>
-            <CodeExamplePreview ..>
+        <CodeExample>
+            <CodeExamplePreview>
             </CodeExamplePreview>
-            <CodeExampleSource ..>
+            <CodeExampleSource>
             </CodeExampleSource>
-            <CodeExampleButton ..></CodeExampleButton>
+            <CodeExampleButton></CodeExampleButton>
         </CodeExample>
     };
     assert_eq!(code_example.render().as_inner(), &code_example_markup);
@@ -148,12 +148,12 @@ fn attributes() {
     assert_eq!(code_example.render().as_inner(), &code_example_markup);
 
     let code_example = rsx! {
-        <CodeExample open=true ..>
-            <CodeExamplePreview resize=true attrs=(CommonAttrs::new().id("preview"))>
+        <CodeExample open=true>
+            <CodeExamplePreview resize=true id="preview">
             </CodeExamplePreview>
-            <CodeExampleSource attrs=(CommonAttrs::new().id("source").class("code"))>
+            <CodeExampleSource id="source" class="code">
             </CodeExampleSource>
-            <CodeExampleButton attrs=(CommonAttrs::new().class("toggle").style("color: red"))>
+            <CodeExampleButton class="toggle" style="color: red">
             </CodeExampleButton>
         </CodeExample>
     };
@@ -177,7 +177,7 @@ fn children() {
             <div class="code-example-source">
                 <pre>
                     <code class="language-html">
-                        &lt;Badge ..&gt;"Badge"&lt;/Badge&gt;
+                        &lt;Badge&gt;"Badge"&lt;/Badge&gt;
                     </code>
                 </pre>
             </div>
@@ -204,14 +204,14 @@ fn children() {
         CodeExamplePreview::default()
             .resize(true)
             .children(Lazy::dangerously_create(|buffer| {
-                rsx!(<Badge ..>"Badge"</Badge>).render_to(buffer)
+                rsx!(<Badge>"Badge"</Badge>).render_to(buffer)
             }))
             .render_to(buffer);
         CodeExampleSource::default()
             .children(Lazy::dangerously_create(|buffer| {
                 rsx! {
                     <code class="language-html">
-                        r#"<Badge ..>"Badge"</Badge>"#
+                        r#"<Badge>"Badge"</Badge>"#
                     </code>
                 }
                 .render_to(buffer);
@@ -224,16 +224,16 @@ fn children() {
     assert_eq!(code_example.render().as_inner(), &code_example_markup);
 
     let code_example = rsx! {
-        <CodeExample ..>
-            <CodeExamplePreview resize=true ..>
-                <Badge ..>"Badge"</Badge>
+        <CodeExample>
+            <CodeExamplePreview resize=true>
+                <Badge>"Badge"</Badge>
             </CodeExamplePreview>
-            <CodeExampleSource ..>
+            <CodeExampleSource>
                 <code class="language-html">
-                    r#"<Badge ..>"Badge"</Badge>"#
+                    r#"<Badge>"Badge"</Badge>"#
                 </code>
             </CodeExampleSource>
-            <CodeExampleButton ..>"Code"</CodeExampleButton>
+            <CodeExampleButton>"Code"</CodeExampleButton>
         </CodeExample>
     };
     assert_eq!(code_example.render().as_inner(), &code_example_markup);

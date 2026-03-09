@@ -8,6 +8,7 @@ use crate::hypertext_elements;
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example")]
+#[props(builder)]
 pub struct CodeExample {
     #[prop(setters)]
     pub open: bool,
@@ -38,6 +39,7 @@ impl Renderable for CodeExample {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-preview")]
+#[props(builder)]
 pub struct CodeExamplePreview {
     #[prop(setters)]
     pub resize: bool,
@@ -79,6 +81,7 @@ impl Renderable for CodeExamplePreview {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-source")]
+#[props(builder)]
 pub struct CodeExampleSource {
     #[as_ref]
     #[as_mut]
@@ -107,6 +110,7 @@ impl Renderable for CodeExampleSource {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-buttons")]
+#[props(builder)]
 pub struct CodeExampleButton {
     #[as_ref]
     #[as_mut]

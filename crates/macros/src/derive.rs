@@ -11,14 +11,37 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
         ));
     };
 
+    let vis = &input.vis;
     let struct_name = &input.ident;
     let (impl_generics, ty_generics, where_clause) = input.generics.split_for_impl();
 
+    let mut builder = None;
     let mut setters = Vec::new();
     let mut impl_froms = Vec::new();
 
+    if let Some(props_attr) = input.attrs.iter().find(|attr| attr.path().is_ident("props")) {
+        props_attr.parse_nested_meta(|meta| {
+            if meta.path.is_ident("builder") {
+                builder = Some(quote! {
+                    #[must_use]
+                    #vis fn builder() -> Self {
+                        Self::default()
+                    }
+
+                    #[must_use]
+                    #vis fn build(self) -> Self {
+                        self
+                    }
+                });
+                return Ok(());
+            }
+
+            Err(meta.error("unrecognized props"))
+        })?;
+    }
+
     for field in &data_struct.fields {
-        if let Some(name) = field.ident.as_ref()
+        if let Some(name) = &field.ident
             && let Some(prop_attr) = field.attrs.iter().find(|attr| attr.path().is_ident("prop"))
         {
             let ty = &field.ty;
@@ -43,12 +66,12 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
                 let setter_name = format_ident!("set_{}", name);
                 setters.push(quote! {
                     #[must_use]
-                    pub fn #name(mut self, #name: #ty) -> Self {
+                    #vis fn #name(mut self, #name: #ty) -> Self {
                         self.#name = #name;
                         self
                     }
 
-                    pub fn #setter_name(&mut self, #name: #ty) -> &mut Self {
+                    #vis fn #setter_name(&mut self, #name: #ty) -> &mut Self {
                         self.#name = #name;
                         self
                     }
@@ -80,17 +103,18 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
         }
     }
 
-    let output = if !setters.is_empty() {
+    let output = if builder.is_none() && setters.is_empty() {
         quote! {
-            #[automatically_derived]
-            impl #impl_generics #struct_name #ty_generics #where_clause {
-                #(#setters)*
-            }
-
             #(#impl_froms)*
         }
     } else {
         quote! {
+            #[automatically_derived]
+            impl #impl_generics #struct_name #ty_generics #where_clause {
+                #builder
+                #(#setters)*
+            }
+
             #(#impl_froms)*
         }
     };

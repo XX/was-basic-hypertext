@@ -1,4 +1,4 @@
-use hypertext::{Renderable, rsx};
+use hypertext::{RenderableExt, rsx};
 use was_basic_hypertext::hypertext_elements;
 use wasm_bindgen::prelude::*;
 

@@ -1,22 +1,19 @@
 use proc_macro::TokenStream;
-use syn::{DeriveInput, ItemStruct, parse_macro_input};
+use syn::parse_macro_input;
 
 mod attribute;
 mod derive;
 
-#[proc_macro_derive(Props, attributes(prop))]
+#[proc_macro_derive(Props, attributes(props, prop))]
 pub fn derive_props(input: TokenStream) -> TokenStream {
-    derive::props(parse_macro_input!(input as DeriveInput))
+    derive::props(parse_macro_input!(input))
         .unwrap_or_else(|err| err.to_compile_error())
         .into()
 }
 
 #[proc_macro_attribute]
 pub fn const_str(args: TokenStream, input: TokenStream) -> TokenStream {
-    attribute::const_str(
-        parse_macro_input!(args as attribute::Args),
-        parse_macro_input!(input as ItemStruct),
-    )
-    .unwrap_or_else(|err| err.to_compile_error())
-    .into()
+    attribute::const_str(parse_macro_input!(args), parse_macro_input!(input))
+        .unwrap_or_else(|err| err.to_compile_error())
+        .into()
 }

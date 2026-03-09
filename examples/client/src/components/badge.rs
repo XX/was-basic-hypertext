@@ -9,6 +9,8 @@ use was_basic_hypertext::layouts::code_example::{
 };
 use was_basic_hypertext::variant::Variant::*;
 
+use crate::fontawesome;
+
 pub fn overview() -> impl Renderable {
     rsx! {
         <h1>"Badge"</h1>
@@ -163,6 +165,54 @@ pub fn overview() -> impl Renderable {
                     <Badge variant=Success pill=true>"Success"</Badge>
                     <Badge variant=Warning pill=true>"Warning"</Badge>
                     <Badge variant=Danger pill=true>"Danger"</Badge>
+                "#</code>
+            </CodeExampleSource>
+            <CodeExampleButton>"Code"</CodeExampleButton>
+        </CodeExample>
+
+        <h3>"Start & End Decorations"</h3>
+        <p>"Use the "<code>"start"</code>" and "<code>"end"</code>" classes to add presentational elements like icons alongside the badge's label."</p>
+        <CodeExample>
+            <CodeExamplePreview resize=true>
+                <div class="wa-cluster wa-gap-2xs">
+                    <Badge variant=Brand>
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Start"
+                    </Badge>
+                    <Badge variant=Brand>
+                        "End"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                    <Badge variant=Brand>
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Both"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                </div>
+            </CodeExamplePreview>
+            <CodeExampleSource>
+                <code class="language-html">r#"
+                    <Badge>
+                        <span class="start">...</span>
+                        "Start"
+                    </Badge>
+                    <Badge>
+                        "End"
+                        <span class="end">...</span>
+                    </Badge>
+                    <Badge>
+                        <span class="start">...</span>
+                        "Both"
+                        <span class="end">...</span>
+                    </Badge>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton>"Code"</CodeExampleButton>

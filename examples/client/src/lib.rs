@@ -3,6 +3,7 @@ use was_basic_hypertext::hypertext_elements;
 use wasm_bindgen::prelude::*;
 
 pub mod components;
+pub mod fontawesome;
 
 #[wasm_bindgen]
 extern "C" {

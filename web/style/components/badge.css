@@ -97,9 +97,12 @@
     }
   }
 */
-.badge .icon {
-    margin-inline-end: var(--wa-space-2xs, 0.25em);
-    opacity: 90%;
-    line-height: 1;
-    height: 0.85em;
+@scope (.badge) {
+    .start {
+        margin-inline-end: 0.375em;
+    }
+
+    .end {
+        margin-inline-start: 0.375em;
+    }
 }

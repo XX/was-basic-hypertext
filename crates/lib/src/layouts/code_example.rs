@@ -1,6 +1,6 @@
 use derive_more::{AsMut, AsRef};
 use hypertext::prelude::{EventHandlerAttributes, GlobalAttributes};
-use hypertext::{Buffer, Lazy, Renderable, rsx};
+use hypertext::{Buffer, Renderable, rsx};
 use was_basic_hypertext_macros::{Props, const_str};
 
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
@@ -8,20 +8,25 @@ use crate::hypertext_elements;
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example")]
-#[props(builder)]
-pub struct CodeExample {
-    #[prop(setters)]
+#[props(builder for<()>)]
+pub struct CodeExample<R: Renderable> {
     pub open: bool,
 
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[prop(setters)]
-    pub children: Lazy<fn(&mut Buffer)>,
+    #[prop(convert)]
+    pub children: Option<R>,
 }
 
-impl Renderable for CodeExample {
+impl CodeExample<()> {
+    pub const fn class() -> &'static str {
+        Self::CLASS
+    }
+}
+
+impl<R: Renderable> Renderable for CodeExample<R> {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.id();
         let classes = [Self::CLASS, if self.open { "open" } else { "" }];
@@ -39,20 +44,19 @@ impl Renderable for CodeExample {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-preview")]
-#[props(builder)]
-pub struct CodeExamplePreview {
-    #[prop(setters)]
+#[props(builder for<()>)]
+pub struct CodeExamplePreview<R: Renderable> {
     pub resize: bool,
 
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[prop(setters)]
-    pub children: Lazy<fn(&mut Buffer)>,
+    #[prop(convert)]
+    pub children: Option<R>,
 }
 
-impl Renderable for CodeExamplePreview {
+impl<R: Renderable> Renderable for CodeExamplePreview<R> {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.id();
         let class_line = self.class_line_with([Self::CLASS]);
@@ -62,7 +66,7 @@ impl Renderable for CodeExamplePreview {
             <div id=[id] class=[&class_line] style=[&style_line]>
                 (self.children)
                 @if self.resize {
-                    <div class=(CodeExample::CLASS, "-resizer")>
+                    <div class=(CodeExample::class(), "-resizer")>
                         <span class="icon">
                             // grip-lines-vertical
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
@@ -81,17 +85,17 @@ impl Renderable for CodeExamplePreview {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-source")]
-#[props(builder)]
-pub struct CodeExampleSource {
+#[props(builder for<()>)]
+pub struct CodeExampleSource<R: Renderable> {
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[prop(setters)]
-    pub children: Lazy<fn(&mut Buffer)>,
+    #[prop(convert)]
+    pub children: Option<R>,
 }
 
-impl Renderable for CodeExampleSource {
+impl<R: Renderable> Renderable for CodeExampleSource<R> {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.id();
         let class_line = self.class_line_with([Self::CLASS]);
@@ -110,17 +114,17 @@ impl Renderable for CodeExampleSource {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-buttons")]
-#[props(builder)]
-pub struct CodeExampleButton {
+#[props(builder for<()>)]
+pub struct CodeExampleButton<R: Renderable> {
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[prop(setters)]
-    pub children: Lazy<fn(&mut Buffer)>,
+    #[prop(convert)]
+    pub children: Option<R>,
 }
 
-impl Renderable for CodeExampleButton {
+impl<R: Renderable> Renderable for CodeExampleButton<R> {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.id();
         let class_line = self.class_line_with([Self::CLASS]);
@@ -128,7 +132,7 @@ impl Renderable for CodeExampleButton {
 
         rsx! {
             <div id=[id] class=[&class_line] style=[&style_line]>
-                <button class=(CodeExample::CLASS, "-toggle") type="button" onclick=("this.closest('.", CodeExample::CLASS, "').classList.toggle('open')")>
+                <button class=(CodeExample::class(), "-toggle") type="button" onclick=("this.closest('.", CodeExample::class(), "').classList.toggle('open')")>
                     (self.children)
                     " "
                     <span class="icon">

@@ -1,6 +1,6 @@
 use derive_more::{AsMut, AsRef};
 use hypertext::prelude::GlobalAttributes;
-use hypertext::{Buffer, Lazy, Renderable, rsx};
+use hypertext::{Buffer, Renderable, rsx};
 use was_basic_hypertext_macros::{Props, const_str};
 
 use crate::appearance::Appearance;
@@ -10,26 +10,25 @@ use crate::variant::Variant;
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "badge")]
-#[props(builder)]
-pub struct Badge {
-    #[prop(setters, from)]
+#[props(builder for<()>)]
+pub struct Badge<R: Renderable> {
+    #[prop(from)]
     pub variant: Variant,
 
-    #[prop(setters, from)]
+    #[prop(from)]
     pub appearance: Appearance,
 
-    #[prop(setters, from)]
     pub pill: bool,
 
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
 
-    #[prop(setters)]
-    pub children: Lazy<fn(&mut Buffer)>,
+    #[prop(convert)]
+    pub children: Option<R>,
 }
 
-impl Renderable for Badge {
+impl<R: Renderable> Renderable for Badge<R> {
     fn render_to(&self, buffer: &mut Buffer) {
         let id = self.id();
         let class_line = self.class_line_with([

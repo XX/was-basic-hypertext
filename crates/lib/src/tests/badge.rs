@@ -11,7 +11,7 @@ use crate::variant::VariantConstructor;
 fn default() {
     let badge_markup = r#"<div class="badge neutral accent"></div>"#;
 
-    let badge = Badge::default();
+    let badge = Badge::builder();
     assert_eq!(badge.render().as_inner(), badge_markup);
 
     let badge = rsx! { <Badge/> };
@@ -28,7 +28,7 @@ fn variant() {
     let badge = Badge::success();
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let badge = Badge::default().variant(Success);
+    let badge = Badge::builder().variant(Success);
     assert_eq!(badge.render().as_inner(), badge_markup);
 
     let badge = rsx! { <Badge variant=Success/> };
@@ -44,6 +44,10 @@ fn children() {
 
     let badge = rsx! { <Badge>"Hello, world!"</Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
+
+    let msg = "Hello, world!";
+    let badge = rsx! { <Badge>(msg)</Badge> };
+    assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
 #[test]
@@ -53,13 +57,17 @@ fn nested() {
 
     let badge = rsx! { <Badge><Badge variant=Success>"Hello, world!"</Badge></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
+
+    let msg = "Hello, world!";
+    let badge = rsx! { <Badge><Badge variant=Success>(msg)</Badge></Badge> };
+    assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
 #[test]
 fn additional_attributes() {
     let badge_markup = r#"<div id="the-badge" class="badge neutral accent test alarm" style="color: red"></div>"#;
 
-    let badge = Badge::default()
+    let badge = Badge::builder()
         .id("the-badge")
         .class("test")
         .class("alarm")

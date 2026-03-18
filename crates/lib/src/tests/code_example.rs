@@ -10,7 +10,7 @@ use crate::layouts::code_example::{CodeExample, CodeExampleButton, CodeExamplePr
 fn default() {
     let code_example_markup = r#"<div class="code-example"></div>"#;
 
-    let code_example = CodeExample::default();
+    let code_example = CodeExample::builder();
     assert_eq!(code_example.render().as_inner(), code_example_markup);
 
     let code_example = rsx! { <CodeExample></CodeExample> };
@@ -18,7 +18,7 @@ fn default() {
 
     let code_example_preview_markup = r#"<div class="code-example-preview"></div>"#;
 
-    let code_example_preview = CodeExamplePreview::default();
+    let code_example_preview = CodeExamplePreview::builder();
     assert_eq!(code_example_preview.render().as_inner(), code_example_preview_markup);
 
     let code_example_preview = rsx! { <CodeExamplePreview></CodeExamplePreview> };
@@ -26,7 +26,7 @@ fn default() {
 
     let code_example_source_markup = r#"<div class="code-example-source"><pre></pre></div>"#;
 
-    let code_example_source = CodeExampleSource::default();
+    let code_example_source = CodeExampleSource::builder();
     assert_eq!(code_example_source.render().as_inner(), code_example_source_markup);
 
     let code_example_source = rsx! { <CodeExampleSource></CodeExampleSource> };
@@ -47,7 +47,7 @@ fn default() {
     .map(str::trim_start)
     .collect::<String>();
 
-    let code_example_button = CodeExampleButton::default();
+    let code_example_button = CodeExampleButton::builder();
     assert_eq!(code_example_button.render().as_inner(), &code_example_button_markup);
 
     let code_example_button = rsx! { <CodeExampleButton></CodeExampleButton> };
@@ -129,18 +129,18 @@ fn attributes() {
     .map(str::trim_start)
     .collect::<String>();
 
-    let code_example = CodeExample::default()
+    let code_example = CodeExample::builder()
         .open(true)
         .children(Lazy::dangerously_create(|buffer| {
-            CodeExamplePreview::default()
+            CodeExamplePreview::builder()
                 .resize(true)
                 .id("preview")
                 .render_to(buffer);
-            CodeExampleSource::default()
+            CodeExampleSource::builder()
                 .id("source")
                 .class("code")
                 .render_to(buffer);
-            CodeExampleButton::default()
+            CodeExampleButton::builder()
                 .class("toggle")
                 .style("color: red")
                 .render_to(buffer);
@@ -200,14 +200,14 @@ fn children() {
     .map(str::trim_start)
     .collect::<String>();
 
-    let code_example = CodeExample::default().children(Lazy::dangerously_create(|buffer| {
-        CodeExamplePreview::default()
+    let code_example = CodeExample::builder().children(Lazy::dangerously_create(|buffer| {
+        CodeExamplePreview::builder()
             .resize(true)
             .children(Lazy::dangerously_create(|buffer| {
                 rsx!(<Badge>"Badge"</Badge>).render_to(buffer)
             }))
             .render_to(buffer);
-        CodeExampleSource::default()
+        CodeExampleSource::builder()
             .children(Lazy::dangerously_create(|buffer| {
                 rsx! {
                     <code class="language-html">
@@ -217,7 +217,7 @@ fn children() {
                 .render_to(buffer);
             }))
             .render_to(buffer);
-        CodeExampleButton::default()
+        CodeExampleButton::builder()
             .children(Lazy::dangerously_create(|buffer| "Code".render_to(buffer)))
             .render_to(buffer);
     }));
@@ -231,6 +231,23 @@ fn children() {
             <CodeExampleSource>
                 <code class="language-html">
                     r#"<Badge>"Badge"</Badge>"#
+                </code>
+            </CodeExampleSource>
+            <CodeExampleButton>"Code"</CodeExampleButton>
+        </CodeExample>
+    };
+    assert_eq!(code_example.render().as_inner(), &code_example_markup);
+
+    let badge = rsx! { <Badge>"Badge"</Badge> };
+    let code = r#"<Badge>"Badge"</Badge>"#;
+    let code_example = rsx! {
+        <CodeExample>
+            <CodeExamplePreview resize=true>
+                (badge)
+            </CodeExamplePreview>
+            <CodeExampleSource>
+                <code class="language-html">
+                    (code)
                 </code>
             </CodeExampleSource>
             <CodeExampleButton>"Code"</CodeExampleButton>

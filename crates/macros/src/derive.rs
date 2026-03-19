@@ -85,6 +85,7 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
             let mut is_skip = false;
             let mut is_skip_setter = false;
             let mut is_from = false;
+            let mut is_into = false;
             let mut is_convert = false;
 
             if let Some(prop_attr) = field.attrs.iter().find(|attr| attr.path().is_ident("prop")) {
@@ -99,6 +100,11 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
                         return Ok(());
                     }
 
+                    if meta.path.is_ident("into") {
+                        is_into = true;
+                        return Ok(());
+                    }
+
                     if meta.path.is_ident("convert") {
                         is_convert = true;
                         return Ok(());
@@ -109,9 +115,20 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
             }
 
             if !is_skip {
-                if is_convert {
-                    let (is_optional, ty) = extract_option_type(ty);
+                let (is_optional, ty) = extract_option_type(ty);
+                let value = if is_into { quote!(#name.into()) } else { quote!(#name) };
+                let value_ty = if is_into {
+                    quote!(impl ::std::convert::Into<#ty>)
+                } else {
+                    quote!(#ty)
+                };
+                let set_value = if is_optional {
+                    quote!(self.#name = Some(#value))
+                } else {
+                    quote!(self.#name = #value)
+                };
 
+                if is_convert {
                     if let Some(ty_ident) = type_as_ident(ty) {
                         let mut generics = input.generics.clone();
                         let Some(new_ty_param) =
@@ -151,8 +168,8 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
                 } else {
                     methods.push(quote! {
                         #[must_use]
-                        #vis fn #name(mut self, #name: #ty) -> Self {
-                            self.#name = #name;
+                        #vis fn #name(mut self, #name: #value_ty) -> Self {
+                            #set_value;
                             self
                         }
                     });
@@ -161,8 +178,8 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
                 if !is_skip_setter {
                     let setter_name = format_ident!("set_{}", name);
                     methods.push(quote! {
-                        #vis fn #setter_name(&mut self, #name: #ty) -> &mut Self {
-                            self.#name = #name;
+                        #vis fn #setter_name(&mut self, #name: #value_ty) -> &mut Self {
+                            #set_value;
                             self
                         }
                     });

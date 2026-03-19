@@ -1,0 +1,81 @@
+use std::borrow::Cow;
+
+use derive_more::{AsMut, AsRef};
+use hypertext::prelude::{EventHandlerAttributes, GlobalAttributes};
+use hypertext::{Buffer, Renderable, rsx};
+use was_basic_hypertext_macros::{Props, const_str};
+
+use crate::appearance::Appearance;
+use crate::attributes::{CommonAttributeGetters, CommonAttrs};
+use crate::hypertext_elements;
+use crate::link::Link;
+use crate::variant::Variant;
+
+#[derive(Default, AsRef, AsMut, Props)]
+#[const_str(CLASS = "button")]
+#[props(builder)]
+pub struct Button<R: Renderable = ()> {
+    #[prop(from)]
+    pub variant: Variant,
+
+    #[prop(from)]
+    pub appearance: Appearance,
+
+    pub pill: bool,
+
+    pub loading: bool,
+
+    pub disabled: bool,
+
+    #[as_ref]
+    #[as_mut]
+    pub link: Link,
+
+    #[prop(into)]
+    pub onclick: Option<Cow<'static, str>>,
+
+    #[as_ref]
+    #[as_mut]
+    pub attrs: CommonAttrs,
+
+    #[prop(convert)]
+    pub children: Option<R>,
+}
+
+impl<R: Renderable> Renderable for Button<R> {
+    fn render_to(&self, buffer: &mut Buffer) {
+        let id = self.id();
+        let class_line = self.class_line_with([
+            Self::CLASS,
+            if self.pill { "pill" } else { "" },
+            self.variant.into_str(),
+            self.appearance.into_str(),
+        ]);
+        let style_line = self.style_line_with([]);
+
+        if let Some(href) = &self.link.href {
+            rsx! {
+                <a
+                    id=[id]
+                    class=[&class_line]
+                    style=[&style_line]
+                    href=(href)
+                    target=[&self.link.target]
+                    download=[&self.link.download]
+                    rel=[&self.link.rel]
+                    onclick=[&self.onclick]
+                >
+                    (self.children)
+                </a>
+            }
+            .render_to(buffer);
+        } else {
+            rsx! {
+                <button id=[id] class=[&class_line] style=[&style_line] onclick=[&self.onclick]>
+                    (self.children)
+                </button>
+            }
+            .render_to(buffer);
+        }
+    }
+}

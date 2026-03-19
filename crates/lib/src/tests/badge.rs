@@ -45,8 +45,8 @@ fn children() {
     let badge = rsx! { <Badge>"Hello, world!"</Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let msg = "Hello, world!";
-    let badge = rsx! { <Badge>(msg)</Badge> };
+    let label = "Hello, world!";
+    let badge = rsx! { <Badge>(label)</Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 
@@ -58,8 +58,8 @@ fn nested() {
     let badge = rsx! { <Badge><Badge variant=Success>"Hello, world!"</Badge></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 
-    let msg = "Hello, world!";
-    let badge = rsx! { <Badge><Badge variant=Success>(msg)</Badge></Badge> };
+    let label = "Hello, world!";
+    let badge = rsx! { <Badge><Badge variant=Success>(label)</Badge></Badge> };
     assert_eq!(badge.render().as_inner(), badge_markup);
 }
 

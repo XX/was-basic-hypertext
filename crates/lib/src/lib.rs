@@ -5,6 +5,7 @@ pub mod appearance;
 pub mod attributes;
 pub mod components;
 pub mod layouts;
+pub mod link;
 #[cfg(test)]
 pub mod tests;
 pub mod variant;

@@ -10,8 +10,8 @@ use crate::variant::Variant;
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "badge")]
-#[props(builder for<()>)]
-pub struct Badge<R: Renderable> {
+#[props(builder)]
+pub struct Badge<R: Renderable = ()> {
     #[prop(from)]
     pub variant: Variant,
 

@@ -1,4 +1,5 @@
-pub use {hypertext, was_basic_hypertext_macros as macros};
+pub use hypertext;
+pub use was_basic_hypertext_macros as macros;
 
 pub mod appearance;
 pub mod attributes;

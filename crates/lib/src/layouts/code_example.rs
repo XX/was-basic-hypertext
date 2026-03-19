@@ -8,8 +8,8 @@ use crate::hypertext_elements;
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example")]
-#[props(builder for<()>)]
-pub struct CodeExample<R: Renderable> {
+#[props(builder)]
+pub struct CodeExample<R: Renderable = ()> {
     pub open: bool,
 
     #[as_ref]
@@ -18,12 +18,6 @@ pub struct CodeExample<R: Renderable> {
 
     #[prop(convert)]
     pub children: Option<R>,
-}
-
-impl CodeExample<()> {
-    pub const fn class() -> &'static str {
-        Self::CLASS
-    }
 }
 
 impl<R: Renderable> Renderable for CodeExample<R> {
@@ -44,8 +38,8 @@ impl<R: Renderable> Renderable for CodeExample<R> {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-preview")]
-#[props(builder for<()>)]
-pub struct CodeExamplePreview<R: Renderable> {
+#[props(builder)]
+pub struct CodeExamplePreview<R: Renderable = ()> {
     pub resize: bool,
 
     #[as_ref]
@@ -85,8 +79,8 @@ impl<R: Renderable> Renderable for CodeExamplePreview<R> {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-source")]
-#[props(builder for<()>)]
-pub struct CodeExampleSource<R: Renderable> {
+#[props(builder)]
+pub struct CodeExampleSource<R: Renderable = ()> {
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,
@@ -114,8 +108,8 @@ impl<R: Renderable> Renderable for CodeExampleSource<R> {
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "code-example-buttons")]
-#[props(builder for<()>)]
-pub struct CodeExampleButton<R: Renderable> {
+#[props(builder)]
+pub struct CodeExampleButton<R: Renderable = ()> {
     #[as_ref]
     #[as_mut]
     pub attrs: CommonAttrs,

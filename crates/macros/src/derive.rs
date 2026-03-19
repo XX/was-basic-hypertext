@@ -45,11 +45,23 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
 
                 if !props_args.is_empty() {
                     props_args.parse::<Token![for]>()?;
-                    impl_builder_struct_ga = Some(props_args.parse::<AngleBracketedGenericArguments>()?);
+                    let struct_ga = props_args.parse::<AngleBracketedGenericArguments>()?;
+                    impl_builder_struct_ga = Some(quote!(#struct_ga));
+                } else if input.generics.type_params().all(|param| param.default.is_some()) {
+                    let params = input.generics.type_params().map(|param| {
+                        if let Some(default) = &param.default {
+                            quote!(#default)
+                        } else {
+                            quote!(#param)
+                        }
+                    });
+                    impl_builder_struct_ga = Some(quote!(<#(#params,)*>));
+                }
 
+                if let Some(struct_ga) = &impl_builder_struct_ga {
                     builder_impl = Some(quote! {
                         #[automatically_derived]
-                        impl #struct_name #impl_builder_struct_ga {
+                        impl #struct_name #struct_ga {
                             #builder_start_fn
                         }
                     });
@@ -108,7 +120,7 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
                             return Err(Error::new_spanned(ty, "type param not found for `#[prop(convert)]`"));
                         };
                         let new_ty_ident = &new_ty_param.ident;
-                        let (_impl_generics, new_ty_generics, where_clause) = generics.split_for_impl();
+                        let (impl_generics, new_ty_generics, where_clause) = generics.split_for_impl();
 
                         let fields = data_struct.fields.iter().filter_map(|field| {
                             field.ident.as_ref().map(|ident| {
@@ -126,7 +138,7 @@ pub fn props(input: DeriveInput) -> syn::Result<TokenStream> {
 
                         methods.push(quote! {
                             #[must_use]
-                            #vis fn #name<#new_ty_param>(self, #name: #new_ty_ident) -> #struct_name #new_ty_generics #where_clause {
+                            #vis fn #name #impl_generics(self, #name: #new_ty_ident) -> #struct_name #new_ty_generics #where_clause {
                                 #struct_name {
                                     #(#fields,)*
                                 }

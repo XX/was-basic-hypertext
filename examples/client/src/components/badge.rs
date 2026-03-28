@@ -127,20 +127,20 @@ pub fn overview() -> impl Renderable {
         <CodeExample>
             <CodeExamplePreview resize=true>
                 <div class="wa-cluster wa-gap-2xs">
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-xs)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-s)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-m)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-l)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-xl)">"Brand"</Badge>
+                    <Badge variant=Brand class="size-extra-small">"Brand"</Badge>
+                    <Badge variant=Brand class="size-small">"Brand"</Badge>
+                    <Badge variant=Brand class="size-medium">"Brand"</Badge>
+                    <Badge variant=Brand class="size-large">"Brand"</Badge>
+                    <Badge variant=Brand class="size-extra-large">"Brand"</Badge>
                 </div>
             </CodeExamplePreview>
             <CodeExampleSource>
                 <code class="language-html">r#"
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-xs)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-s)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-m)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-l)">"Brand"</Badge>
-                    <Badge variant=Brand style="font-size: var(--wa-font-size-xl)">"Brand"</Badge>
+                    <Badge variant=Brand class="size-extra-small">"Brand"</Badge>
+                    <Badge variant=Brand class="size-small">"Brand"</Badge>
+                    <Badge variant=Brand class="size-medium">"Brand"</Badge>
+                    <Badge variant=Brand class="size-large">"Brand"</Badge>
+                    <Badge variant=Brand class="size-extra-large">"Brand"</Badge>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton>"Code"</CodeExampleButton>
@@ -174,7 +174,7 @@ pub fn overview() -> impl Renderable {
         <p>"Use the "<code>"start"</code>" and "<code>"end"</code>" classes to add presentational elements like icons alongside the badge's label."</p>
         <CodeExample>
             <CodeExamplePreview resize=true>
-                <div class="wa-cluster wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
                     <Badge variant=Brand>
                         <span class="start icon">
                             (fontawesome::icon("check"))
@@ -197,22 +197,98 @@ pub fn overview() -> impl Renderable {
                         </span>
                     </Badge>
                 </div>
+                <div class="wa-cluster wa-gap-2xs">
+                    <Badge variant=Brand appearance=Outlined class="size-extra-small">
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Both"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                    <Badge variant=Brand appearance=Outlined class="size-small">
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Both"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                    <Badge variant=Brand appearance=Outlined class="size-medium">
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Both"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                    <Badge variant=Brand appearance=Outlined class="size-large">
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Both"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                    <Badge variant=Brand appearance=Outlined class="size-extra-large">
+                        <span class="start icon">
+                            (fontawesome::icon("check"))
+                        </span>
+                        "Both"
+                        <span class="end icon">
+                            (fontawesome::icon("bookmark-solid"))
+                        </span>
+                    </Badge>
+                </div>
             </CodeExamplePreview>
             <CodeExampleSource>
                 <code class="language-html">r#"
-                    <Badge>
-                        <span class="start">...</span>
-                        "Start"
-                    </Badge>
-                    <Badge>
-                        "End"
-                        <span class="end">...</span>
-                    </Badge>
-                    <Badge>
-                        <span class="start">...</span>
-                        "Both"
-                        <span class="end">...</span>
-                    </Badge>
+                    <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
+                        <Badge>
+                            <span class="start">...</span>
+                            "Start"
+                        </Badge>
+                        <Badge>
+                            "End"
+                            <span class="end">...</span>
+                        </Badge>
+                        <Badge>
+                            <span class="start">...</span>
+                            "Both"
+                            <span class="end">...</span>
+                        </Badge>
+                    </div>
+                    <div class="wa-cluster wa-gap-2xs">
+                        <Badge variant=Brand appearance=Outlined  class="size-extra-small">
+                            <span class="start">...</span>
+                            "Both"
+                            <span class="end">...</span>
+                        </Badge>
+                        <Badge variant=Brand appearance=Outlined  class="size-small">
+                            <span class="start">...</span>
+                            "Both"
+                            <span class="end">...</span>
+                        </Badge>
+                        <Badge variant=Brand appearance=Outlined  class="size-medium">
+                            <span class="start">...</span>
+                            "Both"
+                            <span class="end">...</span>
+                        </Badge>
+                        <Badge variant=Brand appearance=Outlined  class="size-large">
+                            <span class="start">...</span>
+                            "Both"
+                            <span class="end">...</span>
+                        </Badge>
+                        <Badge variant=Brand appearance=Outlined  class="size-extra-large">
+                            <span class="start">...</span>
+                            "Both"
+                            <span class="end">...</span>
+                        </Badge>
+                    </div>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton>"Code"</CodeExampleButton>

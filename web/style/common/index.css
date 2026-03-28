@@ -9,5 +9,7 @@
 
 @import url('component/variants.css');
 
+@import url('component/size.css');
+
 /* Theme */
 @import url('themes/default.css');

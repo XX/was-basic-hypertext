@@ -1,4 +1,10 @@
 @import url("common/index.css");
 @import url("components/badge.css");
+@import url("components/button.css");
 @import url("components/icon.css");
 @import url("layouts/code-example.css");
+@import url("layouts/page.css");
+
+.border-end {
+  border-block-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);
+}

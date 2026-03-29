@@ -1,9 +1,8 @@
-use hypertext::prelude::GlobalAttributes;
+use hypertext::prelude::{GlobalAttributes, hypertext_elements};
 use hypertext::{Renderable, rsx};
 use was_basic_hypertext::appearance::Appearance::*;
 use was_basic_hypertext::attributes::CommonAttributeSetters;
 use was_basic_hypertext::components::badge::Badge;
-use was_basic_hypertext::hypertext_elements;
 use was_basic_hypertext::layouts::code_example::{
     CodeExample, CodeExampleButton, CodeExamplePreview, CodeExampleSource,
 };
@@ -123,24 +122,55 @@ pub fn overview() -> impl Renderable {
         </CodeExample>
 
         <h3>"Size"</h3>
-        <p>"Badges are sized relative to the current font size. You can set "<code>"font-size"</code>" on any badge (or an ancestor element) to change it."</p>
+        <p>"Badges are sized relative to the current font size. You can set "
+            <code>"font-size"</code>
+            " style or the corresponding "
+            <code>"size-*"</code>
+            " class on any badge (or an ancestor element) to change it."
+        </p>
         <CodeExample>
             <CodeExamplePreview resize=true>
-                <div class="wa-cluster wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
                     <Badge variant=Brand class="size-extra-small">"Brand"</Badge>
                     <Badge variant=Brand class="size-small">"Brand"</Badge>
                     <Badge variant=Brand class="size-medium">"Brand"</Badge>
                     <Badge variant=Brand class="size-large">"Brand"</Badge>
                     <Badge variant=Brand class="size-extra-large">"Brand"</Badge>
                 </div>
+                <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-xs)">"Brand"</Badge>
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-s)">"Brand"</Badge>
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-m)">"Brand"</Badge>
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-l)">"Brand"</Badge>
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-xl)">"Brand"</Badge>
+                </div>
+                <div class="wa-cluster wa-gap-2xs">
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-2xs)">"Brand"</Badge>
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-2xl)">"Brand"</Badge>
+                    <Badge variant=Brand style="font-size: var(--wa-font-size-3xl)">"Brand"</Badge>
+                </div>
             </CodeExamplePreview>
             <CodeExampleSource>
                 <code class="language-html">r#"
-                    <Badge variant=Brand class="size-extra-small">"Brand"</Badge>
-                    <Badge variant=Brand class="size-small">"Brand"</Badge>
-                    <Badge variant=Brand class="size-medium">"Brand"</Badge>
-                    <Badge variant=Brand class="size-large">"Brand"</Badge>
-                    <Badge variant=Brand class="size-extra-large">"Brand"</Badge>
+                    <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
+                        <Badge variant=Brand class="size-extra-small">"Brand"</Badge>
+                        <Badge variant=Brand class="size-small">"Brand"</Badge>
+                        <Badge variant=Brand class="size-medium">"Brand"</Badge>
+                        <Badge variant=Brand class="size-large">"Brand"</Badge>
+                        <Badge variant=Brand class="size-extra-large">"Brand"</Badge>
+                    </div>
+                    <div class="wa-cluster wa-gap-2xs" style="margin-block-end: 1rem;">
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-xs)">"Brand"</Badge>
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-s)">"Brand"</Badge>
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-m)">"Brand"</Badge>
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-l)">"Brand"</Badge>
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-xl)">"Brand"</Badge>
+                    </div>
+                    <div class="wa-cluster wa-gap-2xs">
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-2xs)">"Brand"</Badge>
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-2xl)">"Brand"</Badge>
+                        <Badge variant=Brand style="font-size: var(--wa-font-size-3xl)">"Brand"</Badge>
+                    </div>
                 "#</code>
             </CodeExampleSource>
             <CodeExampleButton>"Code"</CodeExampleButton>

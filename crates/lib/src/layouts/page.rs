@@ -1,10 +1,9 @@
 use derive_more::{AsMut, AsRef};
-use hypertext::prelude::GlobalAttributes;
+use hypertext::prelude::{GlobalAttributes, hypertext_elements};
 use hypertext::{Buffer, Renderable, rsx};
 use was_basic_hypertext_macros::{Props, const_str};
 
 use crate::attributes::{CommonAttributeGetters, CommonAttrs};
-use crate::hypertext_elements;
 
 #[derive(Default, AsRef, AsMut, Props)]
 #[const_str(CLASS = "page")]

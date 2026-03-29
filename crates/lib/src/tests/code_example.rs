@@ -1,9 +1,8 @@
-use hypertext::prelude::GlobalAttributes;
+use hypertext::prelude::{GlobalAttributes, hypertext_elements};
 use hypertext::{Lazy, Renderable, RenderableExt, rsx};
 
 use crate::attributes::CommonAttributeSetters;
 use crate::components::badge::Badge;
-use crate::hypertext_elements;
 use crate::layouts::code_example::{CodeExample, CodeExampleButton, CodeExamplePreview, CodeExampleSource};
 
 #[test]

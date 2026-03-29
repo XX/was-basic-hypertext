@@ -1,15 +1,23 @@
 import init, * as wasm from "./dist/client.js";
 import highlight from "./vendor/highlight/highlight.js";
 import html from './vendor/highlight/languages/xml.js';
+import init_htmx_request_interception from './vendor/htmx/client_patch.js';
 import './js/layouts/code-example.js';
 import './js/layouts/page.js';
 
 await init();
+init_htmx_request_interception(wasm);
 
-let root_html = wasm.render_root();
+let root_html = wasm.render_root(window.location.pathname);
 let html_fragment = document.createRange().createContextualFragment(root_html);
 let root = document.getElementById('root');
 root.insertBefore(html_fragment, root.firstChild);
 
 highlight.registerLanguage('html', html);
 highlight.highlightAll();
+
+htmx.process(root);
+
+document.body.addEventListener("htmx:afterSettle", function (_event) {
+    highlight.highlightAll();
+});

@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
+use hypertext::prelude::{SvgGlobalAttributes, hypertext_elements, hypertext_svg_elements};
 use hypertext::{Renderable, rsx};
-use was_basic_hypertext::hypertext_elements;
 
 #[derive(Debug, Clone, Copy)]
 struct IconData {

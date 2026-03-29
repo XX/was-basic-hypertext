@@ -1,9 +1,8 @@
-use hypertext::prelude::GlobalAttributes;
-use hypertext::{RenderableExt, rsx};
+use hypertext::prelude::{GlobalAttributes, HtmxAttributes, hypertext_elements};
+use hypertext::{Renderable, RenderableExt, rsx};
 use was_basic_hypertext::appearance::Appearance::*;
 use was_basic_hypertext::attributes::CommonAttributeSetters;
 use was_basic_hypertext::components::button::Button;
-use was_basic_hypertext::hypertext_elements;
 use was_basic_hypertext::layouts::page::{Page, PageAside, PageBody, PageFooter, PageHeader, PageMain, PageMenu};
 use was_basic_hypertext::link::LinkSetters;
 use was_basic_hypertext::link::Target::*;
@@ -14,12 +13,22 @@ pub mod components;
 pub mod fontawesome;
 
 #[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
+pub fn request(route_path: &str) -> String {
+    main_section(route_path).render().into_inner()
+}
+
+fn main_section(route_path: &str) -> impl Renderable {
+    rsx! {
+        @match route_path {
+            "/badge" => (components::badge::overview()),
+            "/button" => (components::button::overview()),
+            _ => {},
+        }
+    }
 }
 
 #[wasm_bindgen]
-pub fn render_root() -> String {
+pub fn render_root(url_path: &str) -> String {
     rsx! {
         <Page>
             <PageHeader class="wa-split">
@@ -46,8 +55,26 @@ pub fn render_root() -> String {
                         <div class="wa-flank"><span class="wa-heading-m">"Components"</span></div>
                     </nav>
                     <nav class="page-menu-nav border-end">
-                        <a class="wa-flank" href="#"><span>"Badge"</span></a>
-                        <a class="wa-flank" href="#"><span>"Button"</span></a>
+                        <a
+                            class="wa-flank"
+                            href="#"
+                            hx-get="/badge"
+                            hx-target=".main-content"
+                            hx-swap="innerHTML"
+                            hx-push-url="true"
+                        >
+                            <span>"Badge"</span>
+                        </a>
+                        <a
+                            class="wa-flank"
+                            href="#"
+                            hx-get="/button"
+                            hx-target=".main-content"
+                            hx-swap="innerHTML"
+                            hx-push-url="true"
+                        >
+                            <span>"Button"</span>
+                        </a>
                     </nav>
                     <nav class="page-menu-nav border-end">
                         <div class="wa-flank"><span class="wa-heading-m">"Layouts"</span></div>
@@ -58,7 +85,7 @@ pub fn render_root() -> String {
                     </nav>
                 </PageMenu>
                 <PageMain class="main-content">
-                    (components::badge::overview())
+                    (main_section(url_path))
                 </PageMain>
                 <PageAside>
                 </PageAside>

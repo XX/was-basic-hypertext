@@ -16,7 +16,7 @@ derive_more = { version = "2.1", features = ["as_ref"] }
 env_logger = "0.11"
 hypertext = { git = "https://github.com/vidhanio/hypertext.git", version = "0.12", features = ["axum", "htmx"] }
 itertools = "0.14"
-strum = { version = "0.27", features = ["derive"] }
+strum = { version = "0.28", features = ["derive"] }
 tiny_file_server = "0.1"
 was-basic-hypertext = { path = "crates/lib" }
 was-basic-hypertext-macros = { path = "crates/macros" }

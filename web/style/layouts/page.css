@@ -3,6 +3,7 @@
   --menu-width: 15rem;
   --aside-width: 15rem;
   --footer-height: 228px;
+  --page-scroll-margin-top: calc(var(--page-header-height, 0px) + 0.5em);
 }
 
 @media screen and (max-width: 920px) {
@@ -103,6 +104,10 @@
     background-color: var(--wa-color-surface-lowered);
     font-size: var(--wa-font-size-s);
   }
+}
+
+.page :is(*, *:after, *:before) {
+  scroll-margin-top: var(--page-scroll-margin-top);
 }
 
 .wa-flank {

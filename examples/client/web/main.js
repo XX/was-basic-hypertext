@@ -2,6 +2,7 @@ import init, * as wasm from "./dist/client.js";
 import highlight from "./vendor/highlight/highlight.js";
 import html from './vendor/highlight/languages/xml.js';
 import init_htmx_request_interception from './vendor/htmx/client_patch.js';
+import './js/components/head.js';
 import './js/layouts/code-example.js';
 import './js/layouts/page.js';
 
@@ -17,6 +18,7 @@ highlight.registerLanguage('html', html);
 highlight.highlightAll();
 
 htmx.process(root);
+init_scroll_to_anchor();
 
 document.body.addEventListener("htmx:afterSettle", function (_event) {
     highlight.highlightAll();

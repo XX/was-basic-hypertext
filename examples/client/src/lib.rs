@@ -18,10 +18,13 @@ pub fn request(route_path: &str) -> String {
 }
 
 fn main_section(route_path: &str) -> impl Renderable {
+    let parts: Vec<_> = route_path.split('#').collect();
+    let path = parts.first().map(|path| path.trim_matches('/')).unwrap_or_default();
+
     rsx! {
-        @match route_path {
-            "/badge" => (components::badge::overview()),
-            "/button" => (components::button::overview()),
+        @match path {
+            "badge" => (components::badge::overview()),
+            "button" => (components::button::overview()),
             _ => {},
         }
     }
@@ -37,7 +40,6 @@ pub fn render_root(url_path: &str) -> String {
                         (fontawesome::icon("puzzle-piece"))
                     </span>
                     <span id="brand-name" class="wa-heading-m wa-desktop-only">"WAS Basic Hypertext"</span>
-                    <a href="#">"Example Link"</a>
                     <a href="#">"Example Link"</a>
                 </div>
                 <div class="wa-cluster wa-gap-xs">

@@ -1,9 +1,23 @@
 @import url("common/index.css");
+
 @import url("components/badge.css");
 @import url("components/button.css");
-@import url("components/icon.css");
+@import url("components/head.css");
+
 @import url("layouts/code-example.css");
 @import url("layouts/page.css");
+
+@import url("utils/icon.css");
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 
 .border-end {
   border-block-end: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-surface-border);

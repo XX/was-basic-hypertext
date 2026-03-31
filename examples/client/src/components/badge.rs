@@ -3,6 +3,8 @@ use hypertext::{Renderable, rsx};
 use was_basic_hypertext::appearance::Appearance::*;
 use was_basic_hypertext::attributes::CommonAttributeSetters;
 use was_basic_hypertext::components::badge::Badge;
+use was_basic_hypertext::components::head::Head;
+use was_basic_hypertext::components::head::HeadLevel::*;
 use was_basic_hypertext::layouts::code_example::{
     CodeExample, CodeExampleButton, CodeExamplePreview, CodeExampleSource,
 };
@@ -12,7 +14,7 @@ use crate::fontawesome;
 
 pub fn overview() -> impl Renderable {
     rsx! {
-        <h1>"Badge"</h1>
+        <Head level=H1>"Badge"</Head>
         <CodeExample>
             <CodeExamplePreview resize=true>
                 <Badge>"Badge"</Badge>
@@ -23,10 +25,14 @@ pub fn overview() -> impl Renderable {
             <CodeExampleButton>"Code"</CodeExampleButton>
         </CodeExample>
 
-        <h2>"Examples"</h2>
+        <Head level=H2 id="examples" anchor=true>
+            "Examples"
+        </Head>
 
-        <h3>"Variants"</h3>
-        <p>"Set the "<code>variant</code>" property to change the badge's variant."</p>
+        <Head level=H3 id="variants" anchor=true>
+            "Variants"
+        </Head>
+        <p>"Use the "<code>variant</code>" attribute to set the badge's semantic variant."</p>
         <CodeExample>
             <CodeExamplePreview resize=true>
                 <div class="wa-cluster wa-gap-2xs">
@@ -49,7 +55,9 @@ pub fn overview() -> impl Renderable {
             <CodeExampleButton>"Code"</CodeExampleButton>
         </CodeExample>
 
-        <h3>"Appearance"</h3>
+        <Head level=H3 id="appearance" anchor=true>
+            "Appearance"
+        </Head>
         <p>"Use the "<code>appearance</code>" property to change the badge's visual appearance."</p>
         <CodeExample>
             <CodeExamplePreview resize=true>
@@ -121,7 +129,9 @@ pub fn overview() -> impl Renderable {
             <CodeExampleButton>"Code"</CodeExampleButton>
         </CodeExample>
 
-        <h3>"Size"</h3>
+        <Head level=H3 id="size" anchor=true>
+            "Size"
+        </Head>
         <p>"Badges are sized relative to the current font size. You can set "
             <code>"font-size"</code>
             " style or the corresponding "
@@ -176,8 +186,10 @@ pub fn overview() -> impl Renderable {
             <CodeExampleButton>"Code"</CodeExampleButton>
         </CodeExample>
 
-        <h3>"Pill Badges"</h3>
-        <p>"Use the "<code>"pill"</code>" property to give badges rounded edges."</p>
+        <Head level=H3 id="pill-badges" anchor=true>
+            "Pill Badges"
+        </Head>
+        <p>"Use the "<code>"pill"</code>" attribute to give badges rounded edges."</p>
         <CodeExample>
             <CodeExamplePreview resize=true>
                 <div class="wa-cluster wa-gap-2xs">
@@ -200,7 +212,9 @@ pub fn overview() -> impl Renderable {
             <CodeExampleButton>"Code"</CodeExampleButton>
         </CodeExample>
 
-        <h3>"Start & End Decorations"</h3>
+        <Head level=H3 id="start-end-decorations" anchor=true>
+            "Start & End Decorations"
+        </Head>
         <p>"Use the "<code>"start"</code>" and "<code>"end"</code>" classes to add presentational elements like icons alongside the badge's label."</p>
         <CodeExample>
             <CodeExamplePreview resize=true>

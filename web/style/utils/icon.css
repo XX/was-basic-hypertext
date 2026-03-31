@@ -67,3 +67,7 @@ svg {
 .icon[data-rotate][data-flip='both'] {
   transform: rotate(var(--rotate-angle, 0deg)) scale(-1, -1);
 }
+
+.icon.icon-shrink {
+  font-size: round(0.875em, 1px);
+}
